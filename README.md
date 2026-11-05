@@ -25,3 +25,9 @@ uvicorn main:app --reload
 cd app
 python test_main.py
 ```
+
+## Azure Container Apps 배포
+
+GitHub Actions는 `app/`의 Dockerfile을 빌드해 `ghcr.io/ppunderbar14/cheongdo-hackathon:latest`에 게시합니다. Azure Container Apps에서 이 이미지를 사용하려면 첫 게시 후 GitHub Packages의 패키지 설정에서 이미지 공개 범위를 `Public`으로 바꾸세요. 공개 이미지를 사용하면 Azure 배포에 별도 레지스트리 자격 증명이 필요하지 않습니다.
+
+이 프로젝트의 Azure 구독에서는 Azure Container Registry Tasks가 허용되지 않아 `az containerapp up --source .` 빌드 방식을 사용할 수 없습니다. GitHub Actions로 이미지를 만든 뒤 Azure Container Apps에서 해당 GHCR 이미지를 배포하세요.

@@ -54,7 +54,16 @@
       copy.append(node("p", [restaurant.area, restaurant.distance_meters && distanceLabel(restaurant.distance_meters)].filter(Boolean).join(" · ")));
       copy.append(node("h3", restaurant.name));
       copy.append(node("p", restaurant.address || "주소 확인 필요"));
-      copy.append(node("p", restaurant.source_checked_at ? `정보 확인 ${restaurant.source_checked_at}` : "정보 확인일 미등록", "restaurant-meta"));
+      copy.append(node("p", restaurant.source_checked_at ? `출처 확인 ${restaurant.source_checked_at}` : "출처 확인일 미등록", "restaurant-meta"));
+      if (restaurant.source_url) {
+        const source = document.createElement("a");
+        source.className = "restaurant-meta";
+        source.href = restaurant.source_url;
+        source.target = "_blank";
+        source.rel = "noopener noreferrer";
+        source.textContent = `출처: ${restaurant.source_label || "원문"}${restaurant.source_published_at ? ` · ${restaurant.source_published_at} 게시` : ""}`;
+        copy.append(source);
+      }
       card.append(copy);
 
       const menus = catalog.menus.filter((menu) => menu.restaurant_id === restaurant.id);

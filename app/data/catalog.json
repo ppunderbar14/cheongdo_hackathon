@@ -1,7 +1,87 @@
 {
-  "restaurants": [],
-  "menus": [],
+  "restaurants": [
+    {
+      "id": "daegok-sikdang",
+      "name": "대곡식당",
+      "area": "청도읍",
+      "address": "경상북도 청도군 청도읍 청도시장1길 25",
+      "status": "listed",
+      "source_label": "청도관광 공식블로그",
+      "source_url": "https://m.blog.naver.com/cheongdotour/224164326469",
+      "source_published_at": "2026-01-30",
+      "source_checked_at": "2026-11-05"
+    },
+    {
+      "id": "guksu-sarang",
+      "name": "국수사랑",
+      "area": "청도읍",
+      "address": "경상북도 청도군 청도읍 청화로 260",
+      "status": "listed",
+      "source_label": "청도관광 공식블로그",
+      "source_url": "https://m.blog.naver.com/cheongdotour/224164326469",
+      "source_published_at": "2026-01-30",
+      "source_checked_at": "2026-11-05"
+    },
+    {
+      "id": "cheongdo-maeun-sujebi",
+      "name": "청도매운수제비집",
+      "area": "화양읍",
+      "address": "경상북도 청도군 화양읍 고수구길 5",
+      "status": "listed",
+      "source_label": "청도관광 공식블로그",
+      "source_url": "https://m.blog.naver.com/cheongdotour/224164326469",
+      "source_published_at": "2026-01-30",
+      "source_checked_at": "2026-11-05"
+    }
+  ],
+  "menus": [
+    {
+      "id": "daegok-dwaeji-gukbap",
+      "restaurant_id": "daegok-sikdang",
+      "name": "돼지국밥"
+    },
+    {
+      "id": "daegok-gogi-guksu",
+      "restaurant_id": "daegok-sikdang",
+      "name": "고기국수"
+    },
+    {
+      "id": "daegok-garak-guksu",
+      "restaurant_id": "daegok-sikdang",
+      "name": "가락국수"
+    },
+    {
+      "id": "guksu-pat-kalguksu",
+      "restaurant_id": "guksu-sarang",
+      "name": "팥칼국수"
+    },
+    {
+      "id": "guksu-deulkkae-kalguksu",
+      "restaurant_id": "guksu-sarang",
+      "name": "들깨칼국수"
+    },
+    {
+      "id": "guksu-eolkeun-kalguksu",
+      "restaurant_id": "guksu-sarang",
+      "name": "얼큰칼국수"
+    },
+    {
+      "id": "maeun-sujebi",
+      "restaurant_id": "cheongdo-maeun-sujebi",
+      "name": "매운수제비"
+    },
+    {
+      "id": "deulkkae-sujebi",
+      "restaurant_id": "cheongdo-maeun-sujebi",
+      "name": "들깨수제비"
+    },
+    {
+      "id": "maeun-sujebi-mandu",
+      "restaurant_id": "cheongdo-maeun-sujebi",
+      "name": "만두"
+    }
+  ],
   "reviews": [],
   "awards": [],
-  "data_notice": "검증된 청도 식당·메뉴 자료 연결 전입니다. 임의의 가게나 평점은 표시하지 않습니다."
+  "data_notice": "청도관광 공식블로그(2026-01-30)가 소개한 식당 3곳과 메뉴입니다. 평점은 등록하지 않았으며, 영업 여부·영업시간은 방문 전에 확인해 주세요."
 }

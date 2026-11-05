@@ -1,6 +1,37 @@
 import unittest
 
-from main import add_rating_summaries, distance_meters, filtered_catalog, monthly_awards
+from main import (
+    add_rating_summaries,
+    distance_meters,
+    filtered_catalog,
+    load_catalog,
+    monthly_awards,
+)
+
+
+class ShippedCatalogTests(unittest.TestCase):
+    def test_published_restaurants_and_menus_have_a_source_and_no_invented_ratings(self):
+        catalog = load_catalog()
+        restaurants = {restaurant["id"]: restaurant for restaurant in catalog["restaurants"]}
+
+        self.assertEqual(len(restaurants), 3)
+        self.assertEqual(len(catalog["menus"]), 9)
+        self.assertTrue(all(restaurant["source_url"] for restaurant in restaurants.values()))
+        self.assertTrue(
+            all(menu["restaurant_id"] in restaurants for menu in catalog["menus"])
+        )
+        self.assertEqual(catalog["reviews"], [])
+        self.assertTrue(all("rating" not in menu for menu in catalog["menus"]))
+
+    def test_published_catalog_supports_area_and_menu_search(self):
+        catalog = load_catalog()
+        result = filtered_catalog(catalog, "매운수제비", "화양읍", None, None)
+
+        self.assertEqual([row["name"] for row in result["restaurants"]], ["청도매운수제비집"])
+        self.assertIn(
+            "매운수제비",
+            [menu["name"] for menu in result["restaurants"][0]["menus"]],
+        )
 
 
 class CatalogTests(unittest.TestCase):

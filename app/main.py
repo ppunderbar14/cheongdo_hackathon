@@ -177,7 +177,7 @@ def filtered_catalog(
     normalized_query = (query or "").strip().casefold()
     rows = []
     for restaurant in catalog.get("restaurants", []):
-        if restaurant.get("status", "active") != "active":
+        if restaurant.get("status", "active") == "inactive":
             continue
         if area and restaurant.get("area") != area:
             continue

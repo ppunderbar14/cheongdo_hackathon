@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f7f3">
+    <title>청도 한입 — 내 취향의 청도 맛집</title>
+    <link rel="stylesheet" href="/static/rate-base.css">
+    <link rel="stylesheet" href="/static/cheongdo.css">
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <a class="brand-mark" href="/" aria-label="청도 한입 홈"><span>한입</span>청도</a>
+        <span class="header-note">지역의 맛을 발견하다</span>
+      </header>
+
+      <section class="hero">
+        <p class="eyebrow">TASTE CHEONGDO</p>
+        <h1>오늘은 청도에서<br><em>무엇을</em> 먹을까요?</h1>
+        <p class="hero-copy">가게의 평균보다, 내가 궁금한 그 메뉴의 평가를 찾아보세요.</p>
+        <div class="location-row">
+          <button id="nearby-button" class="primary-button" type="button">내 주변 맛집 찾기</button>
+          <label class="area-picker">지역
+            <select id="area-select">
+              <option value="">청도 전체</option>
+              <option value="청도읍">청도읍</option>
+              <option value="화양읍">화양읍</option>
+              <option value="각북면">각북면</option>
+              <option value="풍각면">풍각면</option>
+              <option value="이서면">이서면</option>
+              <option value="각남면">각남면</option>
+              <option value="운문면">운문면</option>
+              <option value="금천면">금천면</option>
+              <option value="매전면">매전면</option>
+            </select>
+          </label>
+        </div>
+        <p id="location-status" class="form-message" role="status" aria-live="polite">위치는 주변 검색을 누를 때만 사용하며 저장하지 않아요.</p>
+      </section>
+
+      <section aria-labelledby="discover-title">
+        <div class="section-heading">
+          <div><span class="eyebrow">DISCOVER</span><h2 id="discover-title">청도 맛집</h2></div>
+          <span id="result-count" class="result-count"></span>
+        </div>
+        <form id="search-form" class="search-form" role="search">
+          <div class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" maxlength="80" placeholder="식당이나 메뉴 검색" aria-label="식당이나 메뉴 검색">
+            <button type="submit" class="search-submit-text">검색</button>
+          </div>
+        </form>
+        <div id="restaurant-list" class="restaurant-list" aria-live="polite"></div>
+        <p id="catalog-note" class="catalog-note"></p>
+      </section>
+
+      <section class="monthly-section" aria-labelledby="monthly-title">
+        <div class="section-heading">
+          <div><span class="eyebrow">MONTHLY DISCOVERY</span><h2 id="monthly-title">이번 달 청도 Best</h2></div>
+        </div>
+        <p class="section-note">평점과 평가자 수를 바탕으로 선정해요. AI가 순위를 정하지 않습니다.</p>
+        <div id="award-list" class="award-list"></div>
+      </section>
+
+      <section class="taste-section" aria-labelledby="taste-title">
+        <div class="section-heading">
+          <div><span class="eyebrow">MY TASTE</span><h2 id="taste-title">나의 취향 발견</h2></div>
+        </div>
+        <p class="section-note">내 평가 기록을 바탕으로 취향을 요약해요. 기록은 이 브라우저에만 저장됩니다.</p>
+        <button id="taste-button" class="secondary-button" type="button">내 취향 요약 보기</button>
+        <p id="taste-result" class="taste-result" aria-live="polite"></p>
+      </section>
+
+      <footer class="app-footer">
+        <p>식당·메뉴 정보는 출처와 확인일을 함께 표시합니다. 평가가 적은 곳은 Best로 선정하지 않아요.</p>
+      </footer>
+    </main>
+    <dialog id="review-dialog" class="review-dialog" aria-labelledby="review-title">
+      <form id="review-form">
+        <p class="eyebrow">YOUR TASTE</p>
+        <h2 id="review-title">메뉴 경험 기록</h2>
+        <p id="review-menu-name" class="section-note"></p>
+        <input id="review-menu-id" type="hidden">
+        <label for="review-score">점수 <output id="review-score-output">4.0</output></label>
+        <input id="review-score" type="range" min="0" max="5" step="0.1" value="4">
+        <label for="review-tags">맛 취향 태그 (쉼표로 구분)</label>
+        <input id="review-tags" type="text" maxlength="100" placeholder="예: 담백함, 매콤함">
+        <div class="review-actions">
+          <button id="review-cancel" class="secondary-button" type="button">취소</button>
+          <button class="primary-button" type="submit">내 기록 저장</button>
+        </div>
+        <p id="review-message" class="form-message" role="status"></p>
+      </form>
+    </dialog>
+  </body>
+</html>

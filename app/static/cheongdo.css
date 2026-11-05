@@ -1,0 +1,47 @@
+.header-note, .result-count, .section-note, .catalog-note, .app-footer { color: var(--muted); font-size: .72rem; }
+.brand-mark { color: var(--ink); text-decoration: none; }
+.brand-mark span { color: var(--accent); }
+.hero { margin: 56px 0 42px; }
+.hero h1 { margin-top: 12px; }
+.hero-copy { max-width: 32rem; margin: 18px 0 24px; color: var(--muted); font-size: .85rem; line-height: 1.65; }
+.location-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.location-row .primary-button { min-height: 44px; }
+.area-picker { display: grid; gap: 5px; color: var(--muted); font-size: .68rem; }
+.area-picker select { min-width: 145px; padding: 11px 12px; border: 1px solid var(--line); background: white; color: var(--ink); }
+.form-message { min-height: 1.4em; color: var(--muted); font-size: .7rem; }
+.search-form { margin-bottom: 18px; }
+.search-submit-text { padding: 8px 10px; color: var(--accent); background: transparent; font-size: .75rem; }
+.restaurant-list { display: grid; gap: 12px; }
+.restaurant-card { display: grid; grid-template-columns: 76px 1fr; gap: 13px; padding: 13px; border: 1px solid var(--line); background: white; }
+.restaurant-art { display: grid; place-items: center; min-height: 76px; color: var(--accent); background: #eef4ef; font-size: 1.6rem; }
+.restaurant-copy { min-width: 0; }
+.restaurant-copy h3 { margin: 2px 0 5px; font-size: .95rem; }
+.restaurant-copy p { margin: 4px 0; color: var(--muted); font-size: .7rem; line-height: 1.5; }
+.restaurant-meta { color: var(--accent) !important; }
+.menu-list { grid-column: 1 / -1; display: grid; gap: 7px; padding-top: 10px; border-top: 1px solid var(--line); }
+.menu-row { display: flex; justify-content: space-between; gap: 8px; align-items: start; font-size: .72rem; }
+.menu-row small { display: block; margin-top: 3px; color: var(--muted); }
+.menu-score { flex: 0 0 auto; color: var(--accent); font-weight: 700; }
+.empty-state { padding: 26px 18px; border: 1px dashed var(--line); color: var(--muted); font-size: .8rem; line-height: 1.7; text-align: center; }
+.section-note { margin: -5px 0 15px; line-height: 1.6; }
+.award-list { display: grid; gap: 10px; }
+.award-card { padding: 14px; border: 1px solid var(--line); background: #fff; }
+.award-card strong { display: block; margin-bottom: 5px; font-size: .83rem; }
+.award-card span { color: var(--muted); font-size: .7rem; }
+.secondary-button { padding: 12px 14px; border: 1px solid var(--line); background: white; color: var(--accent); font-size: .75rem; }
+.taste-result { min-height: 1.5em; color: var(--ink); font-size: .82rem; line-height: 1.7; white-space: pre-line; }
+.monthly-section, .taste-section { margin-top: 44px; }
+.app-footer { margin-top: 55px; padding-top: 18px; border-top: 1px solid var(--line); line-height: 1.6; }
+.review-dialog { width: min(100% - 28px, 430px); padding: 22px; border: 1px solid var(--line); color: var(--ink); }
+.review-dialog::backdrop { background: rgb(20 30 22 / 48%); }
+.review-dialog h2 { margin: 8px 0 12px; font-size: 1.35rem; }
+.review-dialog label { display: block; margin: 18px 0 7px; color: var(--muted); font-size: .72rem; }
+.review-dialog output { float: right; color: var(--accent); }
+.review-dialog input[type="range"] { width: 100%; accent-color: var(--accent); }
+.review-dialog input[type="text"] { width: 100%; padding: 11px; border: 1px solid var(--line); }
+.review-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+@media (max-width: 420px) {
+  .app-shell { width: min(100% - 28px, 470px); padding-top: 18px; }
+  .hero { margin-top: 44px; }
+  .hero h1 { font-size: 2.25rem; }
+}

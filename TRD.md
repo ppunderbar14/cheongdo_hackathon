@@ -46,7 +46,7 @@ RATE에서 이미 구현·검증된 검색/평가/지점 경험의 패턴을 선
 
 ## Copilot SDK + Microsoft Agent Framework
 
-- **GitHub Copilot SDK:** 사용자의 실제 평가/취향 태그와 선택된 메뉴 정보에 근거해 자연어 취향 요약/메뉴 설명을 생성한다. 순위나 점수는 결정하지 않는다.
+- **GitHub Copilot SDK:** 서버에 주입한 OpenAI API 키와 `openai` provider를 통해 사용자의 실제 평가/취향 태그와 선택된 메뉴 정보에 근거한 자연어 취향 요약/메뉴 설명을 생성한다. 순위나 점수는 결정하지 않는다. OpenAI API는 별도 Azure 모델 배포가 아니라 토큰 사용량 과금이며, 공개 서버에서는 API 키를 Azure Container Apps secret으로 관리한다.
 - **Microsoft Agent Framework:** `사용자 입력 검증 → 청도 후보 검색 → 적격 후보/근거 선택 → Copilot SDK 호출 → 메뉴 ID·근거·응답 형식 검증`의 워크플로를 오케스트레이션한다.
 - 근거가 없는 메뉴는 모델에 전달하지 않는다. 모델 장애/잘못된 응답은 명시적 오류이며 조작된 대체 평점이나 맛집 사실을 표시하지 않는다.
 - Copilot SDK의 Python 런타임/배포 인증 방식은 별도 최소 통합 시험 후 고정한다. Azure에 비밀을 안전하게 주입하고 브라우저에 API 키를 제공하지 않는다.

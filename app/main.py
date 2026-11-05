@@ -34,6 +34,15 @@ class TasteRequest(BaseModel):
     reviews: list[TasteReview] = Field(min_length=1, max_length=100)
 
 
+def openai_provider_config(api_key: str) -> dict[str, str]:
+    return {
+        "type": "openai",
+        "base_url": "https://api.openai.com/v1",
+        "api_key": api_key,
+        "wire_api": "responses",
+    }
+
+
 def load_catalog() -> dict[str, Any]:
     with DATA_FILE.open(encoding="utf-8") as catalog_file:
         return json.load(catalog_file)
@@ -230,10 +239,9 @@ async def taste_profile_workflow(payload: dict[str, Any]) -> str:
     if not evidence:
         raise ValueError("평가 기록과 연결되는 메뉴를 찾지 못했어요.")
 
-    endpoint = os.getenv("COPILOT_AZURE_ENDPOINT")
-    api_key = os.getenv("COPILOT_AZURE_API_KEY")
-    model = os.getenv("COPILOT_MODEL")
-    if not endpoint or not api_key or not model:
+    api_key = os.getenv("OPENAI_API_KEY")
+    model = os.getenv("OPENAI_MODEL", "gpt-6-luna")
+    if not api_key:
         raise RuntimeError("AI 연결 설정이 없어요.")
 
     prompt = (
@@ -251,11 +259,7 @@ async def taste_profile_workflow(payload: dict[str, Any]) -> str:
         async with CopilotClient() as client:
             async with await client.create_session(
                 model=model,
-                provider={
-                    "type": "azure",
-                    "base_url": endpoint,
-                    "api_key": api_key,
-                },
+                provider=openai_provider_config(api_key),
                 available_tools=[],
             ) as session:
                 reply = await session.send_and_wait(prompt)

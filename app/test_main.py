@@ -1,11 +1,17 @@
+import os
 import unittest
+from unittest.mock import patch
+
+from fastapi.testclient import TestClient
 
 from main import (
     add_rating_summaries,
+    app,
     distance_meters,
     filtered_catalog,
     load_catalog,
     monthly_awards,
+    openai_provider_config,
 )
 
 
@@ -32,6 +38,34 @@ class ShippedCatalogTests(unittest.TestCase):
             "매운수제비",
             [menu["name"] for menu in result["restaurants"][0]["menus"]],
         )
+
+
+class AIConfigurationTests(unittest.TestCase):
+    def test_openai_provider_uses_responses_api(self):
+        self.assertEqual(
+            openai_provider_config("test-key"),
+            {
+                "type": "openai",
+                "base_url": "https://api.openai.com/v1",
+                "api_key": "test-key",
+                "wire_api": "responses",
+            },
+        )
+
+    def test_missing_openai_key_fails_before_creating_a_copilot_session(self):
+        catalog = load_catalog()
+        menu_id = catalog["menus"][0]["id"]
+        with patch.dict(os.environ, {"OPENAI_API_KEY": ""}):
+            response = TestClient(app).post(
+                "/api/taste-guide",
+                json={
+                    "reviews": [
+                        {"menu_id": menu_id, "score": 4.5, "tags": ["담백함"]}
+                    ]
+                },
+            )
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()["detail"], "AI 연결 설정이 없어요.")
 
 
 class CatalogTests(unittest.TestCase):

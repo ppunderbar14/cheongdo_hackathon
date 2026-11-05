@@ -13,6 +13,7 @@ from main import (
     monthly_awards,
     openai_provider_config,
 )
+from copilot import ModelCapabilitiesOverride, ModelSupportsOverride
 
 
 class ShippedCatalogTests(unittest.TestCase):
@@ -41,6 +42,12 @@ class ShippedCatalogTests(unittest.TestCase):
 
 
 class AIConfigurationTests(unittest.TestCase):
+    def test_reasoning_effort_is_disabled_for_openai_models_that_reject_it(self):
+        capabilities = ModelCapabilitiesOverride(
+            supports=ModelSupportsOverride(reasoning_effort=False)
+        )
+        self.assertFalse(capabilities.supports.reasoning_effort)
+
     def test_openai_provider_uses_responses_api(self):
         self.assertEqual(
             openai_provider_config("test-key"),

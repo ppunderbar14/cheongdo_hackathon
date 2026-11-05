@@ -10,6 +10,7 @@
   const tasteResult = $("#taste-result");
   const reviewDialog = $("#review-dialog");
   const reviewForm = $("#review-form");
+  const restaurantDialog = $("#restaurant-dialog");
   let catalog = { restaurants: [], menus: [], reviews: [], awards: [] };
   let position = null;
   let requestId = 0;
@@ -55,6 +56,10 @@
       copy.append(node("h3", restaurant.name));
       copy.append(node("p", restaurant.address || "주소 확인 필요"));
       copy.append(node("p", restaurant.source_checked_at ? `출처 확인 ${restaurant.source_checked_at}` : "출처 확인일 미등록", "restaurant-meta"));
+      const detailButton = node("button", "상세 정보 보기", "restaurant-detail-button");
+      detailButton.type = "button";
+      detailButton.dataset.restaurantId = restaurant.id;
+      copy.append(detailButton);
       if (restaurant.source_url) {
         const source = document.createElement("a");
         source.className = "restaurant-meta";
@@ -174,6 +179,34 @@
     reviewDialog.showModal();
   }
 
+  function openRestaurantDetails(restaurantId) {
+    const restaurant = catalog.restaurants.find((item) => item.id === restaurantId);
+    if (!restaurant) return;
+    $("#restaurant-detail-title").textContent = restaurant.name;
+    $("#restaurant-detail-address").textContent = restaurant.address || "주소 확인 필요";
+    const source = $("#restaurant-detail-source");
+    source.hidden = !restaurant.source_url;
+    source.href = restaurant.source_url || "#";
+    source.textContent = restaurant.source_url
+      ? `출처: ${restaurant.source_label || "원문"}${restaurant.source_published_at ? ` · ${restaurant.source_published_at} 게시` : ""}`
+      : "";
+    const menus = catalog.menus.filter((menu) => menu.restaurant_id === restaurant.id);
+    const menuList = $("#restaurant-detail-menus");
+    menuList.replaceChildren(node("h3", "메뉴"));
+    for (const menu of menus) {
+      const row = document.createElement("div");
+      row.className = "detail-menu-row";
+      row.append(node("strong", menu.name));
+      row.append(node("span", menu.unique_reviewers ? `★ ${Number(menu.rating).toFixed(1)}` : "평가 대기", "menu-score"));
+      const rateButton = node("button", "내 경험 기록", "rate-menu-button");
+      rateButton.type = "button";
+      rateButton.dataset.menuId = menu.id;
+      row.append(rateButton);
+      menuList.append(row);
+    }
+    restaurantDialog.showModal();
+  }
+
   reviewForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const menuId = $("#review-menu-id").value;
@@ -242,9 +275,18 @@
     $("#review-score-output").value = Number(event.currentTarget.value).toFixed(1);
   });
   $("#review-cancel").addEventListener("click", () => reviewDialog.close());
+  $("#restaurant-detail-close").addEventListener("click", () => restaurantDialog.close());
   restaurantList.addEventListener("click", (event) => {
+    const target = event.target.closest("[data-menu-id], [data-restaurant-id]");
+    if (!target) return;
+    if (target.dataset.menuId) openReview(target.dataset.menuId);
+    else openRestaurantDetails(target.dataset.restaurantId);
+  });
+  $("#restaurant-detail-menus").addEventListener("click", (event) => {
     const button = event.target.closest("[data-menu-id]");
-    if (button) openReview(button.dataset.menuId);
+    if (!button) return;
+    restaurantDialog.close();
+    openReview(button.dataset.menuId);
   });
 
   void loadCatalog();

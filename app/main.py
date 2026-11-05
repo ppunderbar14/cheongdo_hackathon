@@ -253,13 +253,16 @@ async def taste_profile_workflow(payload: dict[str, Any]) -> str:
     )
 
     try:
-        from copilot import CopilotClient
+        from copilot import CopilotClient, ModelCapabilitiesOverride, ModelSupportsOverride
         from copilot.session_events import AssistantMessageData
 
         async with CopilotClient() as client:
             async with await client.create_session(
                 model=model,
                 provider=openai_provider_config(api_key),
+                model_capabilities=ModelCapabilitiesOverride(
+                    supports=ModelSupportsOverride(reasoning_effort=False)
+                ),
                 available_tools=[],
             ) as session:
                 reply = await session.send_and_wait(prompt)

@@ -94,5 +94,17 @@
         <p id="review-message" class="form-message" role="status"></p>
       </form>
     </dialog>
+    <dialog id="restaurant-dialog" class="review-dialog detail-dialog" aria-labelledby="restaurant-detail-title">
+      <div class="detail-dialog-header">
+        <div>
+          <p class="eyebrow">RESTAURANT DETAIL</p>
+          <h2 id="restaurant-detail-title"></h2>
+        </div>
+        <button id="restaurant-detail-close" class="secondary-button" type="button" aria-label="상세 정보 닫기">닫기</button>
+      </div>
+      <p id="restaurant-detail-address" class="section-note"></p>
+      <a id="restaurant-detail-source" class="restaurant-meta" target="_blank" rel="noopener noreferrer"></a>
+      <div id="restaurant-detail-menus" class="detail-menu-list"></div>
+    </dialog>
   </body>
 </html>

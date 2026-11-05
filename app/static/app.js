@@ -30,11 +30,18 @@
   function renderRestaurants(rows) {
     $("#result-count").textContent = rows.length ? `${rows.length}곳` : "";
     if (!rows.length) {
-      restaurantList.replaceChildren(node(
+      const emptyState = document.createElement("div");
+      emptyState.className = "empty-state";
+      const icon = node("span", "⌕", "empty-state-mark");
+      icon.setAttribute("aria-hidden", "true");
+      emptyState.append(icon);
+      emptyState.append(node("span", "검증된 정보만 소개해요", "empty-state-label"));
+      emptyState.append(node("h3", "청도 식당 정보를 준비 중이에요"));
+      emptyState.append(node(
         "p",
-        "청도 식당 데이터가 아직 연결되지 않았어요. 검증된 식당·메뉴 자료를 등록한 뒤 주변 탐색과 월간 선정을 공개합니다.",
-        "empty-state"
+        "출처와 확인일이 확인된 식당·메뉴 자료가 등록되면 주변 탐색과 메뉴별 평가를 이용할 수 있어요."
       ));
+      restaurantList.replaceChildren(emptyState);
       return;
     }
 

@@ -10,7 +10,7 @@
 .area-picker select { min-width: 145px; padding: 11px 12px; border: 1px solid var(--line); background: white; color: var(--ink); }
 .form-message { min-height: 1.4em; color: var(--muted); font-size: .7rem; }
 .search-form { margin-bottom: 18px; }
-.search-submit-text { padding: 8px 10px; color: var(--accent); background: transparent; font-size: .75rem; }
+.search-submit-text { padding: 8px 10px; color: var(--accent); background: transparent; font-size: .75rem; white-space: nowrap; }
 .restaurant-list { display: grid; gap: 12px; }
 .restaurant-card { display: grid; grid-template-columns: 76px 1fr; gap: 13px; padding: 13px; border: 1px solid var(--line); background: white; }
 .restaurant-art { display: grid; place-items: center; min-height: 76px; color: var(--accent); background: #eef4ef; font-size: 1.6rem; }
@@ -22,7 +22,11 @@
 .menu-row { display: flex; justify-content: space-between; gap: 8px; align-items: start; font-size: .72rem; }
 .menu-row small { display: block; margin-top: 3px; color: var(--muted); }
 .menu-score { flex: 0 0 auto; color: var(--accent); font-weight: 700; }
-.empty-state { padding: 26px 18px; border: 1px dashed var(--line); color: var(--muted); font-size: .8rem; line-height: 1.7; text-align: center; }
+.empty-state { display: grid; justify-items: center; gap: 12px; padding: 26px 18px; border: 1px dashed var(--line); color: var(--muted); font-size: .8rem; line-height: 1.7; text-align: center; }
+.empty-state-mark { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: #e8eee8; color: var(--accent); font-size: 1.6rem; }
+.empty-state-label { color: var(--accent); font-size: .68rem; font-weight: 700; }
+.empty-state h3 { margin: 0; color: var(--ink); font-size: 1rem; }
+.empty-state p { margin: 0; color: var(--muted); line-height: 1.7; }
 .section-note { margin: -5px 0 15px; line-height: 1.6; }
 .award-list { display: grid; gap: 10px; }
 .award-card { padding: 14px; border: 1px solid var(--line); background: #fff; }
@@ -44,4 +48,51 @@
   .app-shell { width: min(100% - 28px, 470px); padding-top: 18px; }
   .hero { margin-top: 44px; }
   .hero h1 { font-size: 2.25rem; }
+}
+@media (min-width: 900px) {
+  body { background: #f4f5f0; }
+  .app-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+    grid-template-areas:
+      "header header"
+      "hero hero"
+      "discover monthly"
+      "discover taste"
+      "footer footer";
+    gap: 0 56px;
+    width: min(100% - 64px, 1160px);
+    padding: 30px 64px 72px;
+    background: #fff;
+    box-shadow: 0 12px 48px rgb(34 43 35 / 5%);
+  }
+  .app-header { grid-area: header; }
+  .hero {
+    display: grid;
+    grid-area: hero;
+    grid-template: "eyebrow location" auto "title location" auto "copy status" auto / minmax(0, 1fr) minmax(340px, .78fr);
+    align-items: center;
+    gap: 10px 52px;
+    margin: 34px 0 20px;
+    padding: 40px 46px;
+    background: #f5f6f1;
+  }
+  .hero > .eyebrow { grid-area: eyebrow; }
+  .hero h1 { grid-area: title; margin: 0; font-size: clamp(3rem, 4vw, 4rem); }
+  .hero-copy { grid-area: copy; margin: 8px 0 0; }
+  .location-row { grid-area: location; align-self: end; }
+  #location-status { grid-area: status; align-self: start; margin: 0; }
+  .discover-section { grid-area: discover; }
+  .monthly-section { grid-area: monthly; }
+  .taste-section { grid-area: taste; }
+  .app-footer { grid-area: footer; }
+  .section-heading { margin-top: 34px; }
+  .restaurant-card { grid-template-columns: 96px 1fr; padding: 16px; }
+  .restaurant-art { min-height: 96px; }
+  .empty-state {
+    justify-items: start;
+    padding: 30px;
+    background: #f8f8f4;
+    text-align: left;
+  }
 }
